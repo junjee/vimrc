@@ -55,6 +55,7 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
+" If mapleader is not set or empty, a backslash ('\') is used instead
 let mapleader = ","
 let g:mapleader = ","
 
@@ -69,6 +70,9 @@ command W w !sudo tee % > /dev/null
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Precede each line with its line number
+"set number
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -144,6 +148,8 @@ set foldcolumn=1
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
+" If you want Vim to overrule your settings with the defaults, 
+" use 'syntax on'
 syntax enable 
 
 try
@@ -167,6 +173,10 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+"color evening
+"if has("syntax")
+"    syntax on
+"endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -238,8 +248,8 @@ map <leader>ba :1,1000 bd!<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove<cr> 
+map <leader>t<leader> :tabnext<cr> 
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -284,7 +294,7 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
-map 0 ^
+"map 0 ^
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
