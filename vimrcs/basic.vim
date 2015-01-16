@@ -35,6 +35,7 @@
 "    -> vimgrep searching and cope displaying
 "    -> Spell checking
 "    -> Misc
+"    -> Programming
 "    -> Helper functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -378,7 +379,50 @@ map <leader>x :e ~/buffer.md<cr>
 map <leader>pp :setlocal paste!<cr>
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Programming
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""
+" => ctags
+"
+" omnicppcomplete need options '--c++-kinds=+p --fields=+iaS --extra=+q .'
+""""""""""""""""""""""""""""""
+map <F4> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+set tags=tags;
+set autochdir
 
+""""""""""""""""""""""""""""""
+" => cscope
+""""""""""""""""""""""""""""""
+if has('cscope')
+    set cscopetag cscopeverbose
+
+    if has('quickfix')
+        set cscopequickfix=s-,c-,d-,i-,t-,e-
+    endif
+
+    cnoreabbrev csa cs add
+    cnoreabbrev csf cs find
+    cnoreabbrev csk cs kill
+    cnoreabbrev csr cs reset
+    cnoreabbrev css cs show
+    cnoreabbrev csh cs help
+
+    nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+    nmap <C-@>g :cs find g <C-R>=expand("<cword>")<Cr><CR> :cw<CR>
+    nmap <C-@>c :cs find c <C-R>=expand("<cword>")<Cr><CR> :cw<CR>
+    nmap <C-@>t :cs find t <C-R>=expand("<cword>")<Cr><CR> :cw<CR>
+    nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+    nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-@>i :cs find i <C-R>=expand("<cfile>")<CR><CR> :cw<CR>
+    nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR> :cw<CR>
+
+    map <F5> :!cscope -Rbq
+
+    if filereadable("cscope.out")
+        cs add cscope.out
+    endif
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
